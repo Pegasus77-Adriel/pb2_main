@@ -79,7 +79,7 @@ def account(cpf):
     try:
         with sqlite3.connect(DB_PATH) as conn:
             c = conn.cursor()
-            c.execute("SELECT name, saldo FROM users WHERE cpf = ?", (cpf,))
+            c.execute("SELECT name, saldo FROM users WHERE cpf LIKE ?", ('%' + cpf + '%',))
             user = c.fetchone()
             if user:
                 user_data = {'name': user[0], 'saldo': user[1]}
