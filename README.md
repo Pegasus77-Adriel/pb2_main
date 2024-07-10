@@ -11,7 +11,7 @@
 1. Sistema operacional:
   - Windows 10;
   - Ubuntu 22.04 LTS;
-2. Linguagem de programação: python:3.11.4;
+2. Linguagem de programação: python:3.11.4, javascript, html e css;
   - Bibliotecas nativas utilizadas:
     - flask;
     - socket
@@ -101,15 +101,12 @@ O propósito central deste sistema é otimizar o gerenciamento entre diversas co
 No desenvolvimento do sistema foi utilizado a linguagem de programação Python na versão 3.11.4, bem como as funcionalidades incluídas nas bibliotecas nativas da linguagem, além do framework Flask para implementação da API Rest.
 
 ## 2.1 Comunicação entre bancos
-Para a comunicação do banco [bradesco](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/bradesco), [nubank](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/nubank) e [picpay](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/picpay) foi utilizado o protocolo de comunicação HTTP, inclusive um padrão na troca de mensagens adotados por eles, como é mostrado no diagrama abaixo:
+Para a comunicação do banco [bradesco](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/bradesco), [nubank](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/nubank) e [picpay](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/picpay) foi utilizado o protocolo de comunicação HTTP, inclusive os códigos padronizados usados pelos servidores web para indicar a resposta a uma solicitação feita pelo cliente.
 
-![diagrama sensor e servidor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/diagrama%20servidor%20e%20sensor.png)
+## 2.2 Protocolo HTTP
+Nesse projeto foi utilizado o protocolo HTTP (Hypertext Transfer Protocol), que é um protocolo de comunicação utilizado na web para a transferência de dados entre clientes (como navegadores) e servidores. Ele define como as mensagens são formatadas e transmitidas, bem como as ações que os servidores e navegadores devem executar em resposta a vários comandos.
+  - Métodos HTTP Utilizados: O mais utilizado foi o método POST, usado esse em muitos casos para enviar comandos, como depositar em uma conta em outro banco, além de repassar os dados necessários para o processamento da operação para o banco de destino. Em contrapartida, foi implementado o método GET, sendo ele usado para fazer requisições para consultar dados, por exemplo o saldo da conta de um cliente.   
 
-## 2.2 Protocolos UDP e TCP
-Nesse projeto entre os sensores e o servidor foram utilizados 2 tipos de protocolos de comunicação: 
-- Protocolo UDP: é um protocolo de comunicação da camada de transporte que oferece um serviço de entrega de dados rápido e eficiente, mas não garante a entrega ou a ordem dos pacotes. Ele é amplamente utilizado em situações onde a perda ocasional de dados não é crítica, como é o caso do envio de dados dos sensores para o servidor.
-- Protocolo TCP-IP: é um protoclo que garante a entrega confiável de dados, verificando e retransmitindo pacotes perdidos. Além disso, o TCP controla o fluxo de dados e adapta a taxa de transmissão para evitar congestionamentos na rede. Sua orientação à conexão estabelece e encerra conexões de forma segura, garantindo a integridade dos dados transmitidos. Essas qualidades tornam o TCP uma escolha amplamente utilizada em aplicações que exigem comunicação confiável e orientada à conexão, por esse motivo esse protocolo foi escolhido para garantir que os comandos enviados pelo servidor sejam entregues de forma confiável para os sensores.
-  
 ## 2.3 Servidor e Aplicação
 Para a comunicação do [servidor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/servidor/broker.py) com a [aplicação](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/aplicacao/app.py) foi utilizado o protocolo de comunicação HTTP através da implementação da API Rest, como pode ser visto no diagrama abaixo:
 ![diagrama servidor e app](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/diagrama%20servidor%20e%20app.png)
