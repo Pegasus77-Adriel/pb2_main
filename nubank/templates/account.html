@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sua Conta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1>Bem-vindo à sua conta bancária, {{ user.name }}</h1>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Seu saldo é: R$ {{ user.saldo }}</h5>
+                <p class="card-text">Opções disponíveis:</p>
+                
+                <h2>Selecione uma conta para operação:</h2>
+                <div class="form-group">
+                    <select id="account-select" class="form-control">
+                        {% for account in accounts %}
+                            <option value="{{ account.id }}" data-nome="{{ account.nome }}" data-cpf="{{ account.cpf }}" data-conta="{{ account.conta }}" data-tipo="{{ account.tipo }}" data-saldo="{{ account.saldo }}">
+                                {{ account.nome }} - CPF: {{ account.cpf }} - Tipo: {{ account.tipo }} - Banco: {{account.conta}} - Saldo: R$ {{ account.saldo }}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div id="operation-forms">
+                    <h2>Sacar</h2>
+                    <form id="sacar" class="mb-4">
+                        <div class="form-group">
+                            <input type="number" id="saque" class="form-control" name="amount" placeholder="Valor" min="0.01" step="0.01" required>
+                        </div>
+                        <input type="hidden" name="account_id" id="withdraw-account-id">
+                        <button type="submit" class="btn btn-primary">Sacar</button>
+                    </form>
+
+                    <h2>Depositar</h2>
+                    <form id="depositar" class="mb-4">
+                        <div class="form-group">
+                            <input type="number" id="deposito" class="form-control" name="amount" placeholder="Valor" min="0.01" step="0.01" required>
+                        </div>
+                        <input type="hidden" name="account_id" id="deposit-account-id">
+                        <button type="submit" class="btn btn-success">Depositar</button>
+                    </form>
+                    <head>
+                        <meta charset="UTF-8">
+                        <title>Form Example</title>
+                        <style>
+                            .form-group {
+                                display: flex;
+                                gap: 10px; /* Espaço entre os elementos */
+                                align-items: flex-end; /* Alinha os elementos na parte inferior */
+                            }
+                            .form-group div {
+                                flex: 1; /* Para que ambos os selects ocupem a mesma largura */
+                            }
+                            .form-group label {
+                                display: block; /* Para garantir que o label fique acima do select */
+                            }
+                        </style>
+                    </head>
+
+                    <h2>Transferir</h2>
+                    <form id="transferir" class="mb-4">
+                    <div class="form-group">
+                        <div>
+                            <label for="banco1">Banco do 1° CPF:</label>
+                            <select id="banco1">
+                                <option value="BRADESCO">Bradesco</option>
+                                <option value="NUBANK">Nubank</option>
+                                <option value="PICPAY">PicPay</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="banco2">Banco do 2° CPF:</label>
+                            <select id="banco2">
+                                <option value="BRADESCO">Bradesco</option>
+                                <option value="NUBANK">Nubank</option>
+                                <option value="PICPAY">PicPay</option>
+                            </select>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <input type="number" id="valor1" class="form-control" name="amount" placeholder="Valor 1° CPF" min="0.01" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="valor2" class="form-control" name="amount" placeholder="Valor 2° CPF" min="0.01" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="cpf1" class="form-control" name="target_cpf1" placeholder="CPF do 1° destinatário" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="cpf2" class="form-control" name="target_cpf2" placeholder="CPF do 2° destinatário">
+                        
+                        </div>
+                        </div>
+                        <input type="hidden" name="account_id" id="transfer-account-id">
+                        <button type="submit" class="btn btn-warning">Transferir</button>
+                    </form>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script >
+
+        const NUBANK = "{{ server_ip1 }}";
+        const PICPAY = "{{ server_ip2 }}";
+        const BRADESCO = "{{ server_ip3 }}";
+
+        document.getElementById('sacar').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const selectedOption = document.getElementById('account-select').selectedOptions[0];
+            const id = selectedOption.value;
+            const nome = selectedOption.getAttribute('data-nome');
+            const cpf = selectedOption.getAttribute('data-cpf');
+            const tipo = selectedOption.getAttribute('data-tipo');
+            const saldo = selectedOption.getAttribute('data-saldo');
+            const banco = selectedOption.getAttribute('data-conta');
+            let porta;
+            let ip;
+
+            if (banco === 'Nubank') {
+                porta = '59997';
+                ip = NUBANK
+            } else if (banco === 'Bradesco') {
+                porta = '59997';
+                ip = BRADESCO
+            } else if (banco === 'Picpay') {
+                porta = '59997';
+                ip = PICPAY 
+            }
+        
+            const valor = document.getElementById('saque').value;
+            
+            try {
+                const response = await fetch(`/accountt/sacar/${cpf}/${valor}/${ip}/${porta}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({cpf, valor, ip, porta})
+                });
+                const result = await response.json();
+                alert(result.message);
+        
+            } catch (error) {
+                //console.error('Erro ao enviar formulário:', error);
+                alert('Ocorreu um erro ao enviar a solicitação. Por favor, tente novamente.');
+            }
+        });
+
+
+        document.getElementById('depositar').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const selectedOption = document.getElementById('account-select').selectedOptions[0];
+            const id = selectedOption.value;
+            const nome = selectedOption.getAttribute('data-nome');
+            const cpf = selectedOption.getAttribute('data-cpf');
+            const tipo = selectedOption.getAttribute('data-tipo');
+            const saldo = selectedOption.getAttribute('data-saldo');
+            const banco = selectedOption.getAttribute('data-conta');
+            const valor = document.getElementById('deposito').value;
+            let porta;
+            let ip;
+            
+            if (banco === 'Nubank') {
+                porta = '59997';
+                ip = NUBANK
+            } else if (banco === 'Bradesco') {
+                porta = '59997';
+                ip = BRADESCO
+            } else if (banco === 'Picpay') {
+                porta = '59997';
+                ip = PICPAY 
+            }
+
+            try {
+                const response = await fetch(`/accountt/depositar/${cpf}/${valor}/${ip}/${porta}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({cpf, valor, porta})
+                });
+                const result = await response.json();
+                alert(result.message);
+        
+            } catch (error) {
+                //console.error('Erro ao enviar formulário:', error);
+                alert('Ocorreu um erro ao enviar a solicitação. Por favor, tente novamente.');
+            }
+        });
+
+        document.getElementById('transferir').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const banco1 = document.getElementById('banco1').value;
+    const banco2 = document.getElementById('banco2').value;
+    const cpf1 = document.getElementById('cpf1').value;
+    const cpf2 = document.getElementById('cpf2').value;
+    const valor1 = document.getElementById('valor1').value;
+    const valor2 = document.getElementById('valor2').value;
+    
+    try {
+        const response = await fetch(`/account/transferir/${cpf1}/${cpf2}/${valor1}/${valor2}/${banco1}/${banco2}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({cpf1, cpf2, valor1, valor2, banco1, banco2})
+        });
+        const result = await response.json();
+        alert(result.message);
+
+    } catch (error) {
+        console.error('Erro ao enviar formulário:', error);
+        alert('Ocorreu um erro ao enviar a solicitação. Por favor, tente novamente.');
+    }
+});
+
+
+    </script>
+</body>
+</html>
