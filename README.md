@@ -1,4 +1,4 @@
-# Sistema Bancário Descentralizado 
+ # Sistema Bancário Descentralizado 
 
 ## Problema 2 - Conectividade e Concorrência
 
@@ -105,7 +105,26 @@ Para a comunicação do banco [bradesco](https://github.com/Pegasus77-Adriel/pb2
 
 ## 2.2 Protocolo HTTP
 Nesse projeto foi utilizado o protocolo HTTP (Hypertext Transfer Protocol), que é um protocolo de comunicação utilizado na web para a transferência de dados entre clientes (como navegadores) e servidores. Ele define como as mensagens são formatadas e transmitidas, bem como as ações que os servidores e navegadores devem executar em resposta a vários comandos.
-  - Métodos HTTP Utilizados: O mais utilizado foi o método POST, usado esse em muitos casos para enviar comandos, como depositar em uma conta em outro banco, além de repassar os dados necessários para o processamento da operação para o banco de destino. Em contrapartida, foi implementado o método GET, sendo ele usado para fazer requisições para consultar dados, por exemplo o saldo da conta de um cliente.   
+  - Métodos HTTP Utilizados: O mais utilizado foi o método POST, usado esse em muitos casos para enviar comandos, como depositar em uma conta em outro banco, além de repassar os dados necessários para o processamento da operação para o banco de destino. Em contrapartida, foi implementado o método GET, sendo ele usado para fazer requisições para consultar dados, por exemplo o saldo da conta de um cliente.
+    
+- As rotas possíveis para comunicação com a aplicação:
+  - `/alterar_temp_amostragem/<segundos>/<matricula>`
+    
+    Usada para alterar o intervalo de tempo de envio de um determinado sensor para o servidor.
+  
+    É necessário indicar os **segundos** e a **matricula** do sensor.
+  
+  - `/enviar_comando/<comando>/<matricula>`
+    
+    Usada para enviar o comando de **ligar** ou **desligar** para um sensor.
+  
+    É necessário indicar o **comando** e a **matricula** do sensor.
+  
+  - `/receber_medicao/<matricula>`
+    
+    Usada para solicitar a ultima medição de um determinado sensor.
+
+  É necessário indicar apenas a **matricula**.   
 
 ## 2.3 Servidor e Aplicação
 Para a comunicação do [servidor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/servidor/broker.py) com a [aplicação](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/aplicacao/app.py) foi utilizado o protocolo de comunicação HTTP através da implementação da API Rest, como pode ser visto no diagrama abaixo:
