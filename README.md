@@ -64,7 +64,7 @@ Observação: O docker deve está previamente instalado na máquina.
        ```sh
        cd ..
       ```
-* Abra a picpay:
+* Abra a pasta picpay:
      ```sh
      cd picpay
      ```
@@ -81,27 +81,27 @@ Observação: O docker deve está previamente instalado na máquina.
      ```sh
      docker network create minha_rede_local
      ```
-5. Execute os containers docker.
+6. Execute os containers docker.
 * execute a imagem app-1:
      ```sh
      docker run --network=minha_rede_local -p 59997:59997 -e SERVER-IP1='coloque o IP da máquina que o container do nubank está rodando' -e SERVER-IP2= 'coloque o IP... do picpay' -e SERVER-IP3= 'coloque o IP ... do bradesco' -it app-1 
      ```
 * execute a imagem app-2:
      ```sh
-       docker run --network=minha_rede_local -p 59997:59997 -e SERVER-IP1='coloque o IP da máquina que o container do nubank está rodando' -e SERVER-IP2= 'coloque o IP... do picpay' -e SERVER-IP3= 'coloque o IP ... do bradesco' -it app-1
+       docker run --network=minha_rede_local -p 59997:59997 -e SERVER-IP1='coloque o IP da máquina que o container do nubank está rodando' -e SERVER-IP2= 'coloque o IP... do picpay' -e SERVER-IP3= 'coloque o IP ... do bradesco' -it app-2
      ```
 * execute a imagem app-3:
      ```sh
-       docker run --network=minha_rede_local -p 59997:59997 -e SERVER-IP1='coloque o IP da máquina que o container do nubank está rodando' -e SERVER-IP2= 'coloque o IP... do picpay' -e SERVER-IP3= 'coloque o IP ... do bradesco' -it app-1
+       docker run --network=minha_rede_local -p 59997:59997 -e SERVER-IP1='coloque o IP da máquina que o container do nubank está rodando' -e SERVER-IP2= 'coloque o IP... do picpay' -e SERVER-IP3= 'coloque o IP ... do bradesco' -it app-3
       ```
 # Gerenciamento inteligente descentralizado de transações bancárias 
-O propósito central deste sistema é otimizar o gerenciamento entre diversas contas bancárias de um mesmo cliente em diferentes bancos, e além de oferecer suporte para realizar um conjunto operações simultaneamente,. Isso abrange não apenas a capacidade das aplicações de receber dados remotamente dos dispositivos, mas também de controlar esses dispositivos de forma eficaz. Para alcançar esse propósito, o sistema incorpora protocolos de comunicação como UDP, TCP e HTTP, todos concebidos para assegurar a confiabilidade do serviço.
+O propósito central deste sistema é otimizar o gerenciamento entre diversas contas bancárias de um mesmo cliente em diferentes bancos, além de oferecer suporte para realizar um conjunto de operações simultaneamente. Isso abrange não apenas a capacidade da aplicação de consultar dados remotamente do mesmo cliente em diferentes bancos, mas também de exercutar operações bancárias de forma eficaz, sendo elas depositar, sacar e transferir. Para alcançar esse propósito, o sistema incorpora o protocolo de comunicação HTTP, esse concebido para assegurar a confiabilidade do serviço.
 
 ## 2. Solução do problema
 No desenvolvimento do sistema foi utilizado a linguagem de programação Python na versão 3.11.4, bem como as funcionalidades incluídas nas bibliotecas nativas da linguagem, além do framework Flask para implementação da API Rest.
 
-## 2.1 Sensor e Servidor
-Para a comunicação do [dispositivos](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/sensores/dispositivos.py) com o [servidor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/servidor/broker.py) foi utilizado o protocolo de comunicação UDP e TCP-IP, inclusive um padrão na troca de mensagens adotados por eles, como é mostrado no diagrama abaixo:
+## 2.1 Comunicação entre bancos
+Para a comunicação dos [bancos](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/sensores/dispositivos.py) com o [servidor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/servidor/broker.py) foi utilizado o protocolo de comunicação UDP e TCP-IP, inclusive um padrão na troca de mensagens adotados por eles, como é mostrado no diagrama abaixo:
 
 ![diagrama sensor e servidor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/diagrama%20servidor%20e%20sensor.png)
 
