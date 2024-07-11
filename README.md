@@ -110,41 +110,41 @@ Nesse projeto foi utilizado o protocolo HTTP (Hypertext Transfer Protocol), que 
 Algumas das rotas possíveis para comunicação interna e externa dos bancos:
   - `/signup`
     
-    Usada para criação de uma nova conta bancária de um cliente.
+     Usada para criação de uma nova conta bancária de um cliente.
   
   - `/login`
     
-    Usada para autenticação do login do cliente
+     Usada para autenticação do login do cliente
   
   - `/account/<cpf>`
     
-    Usada para solicitar todas contas bancárias que contém um determinado CPF em todos os bancos.
+     Usada para solicitar todas contas bancárias que contém um determinado CPF em todos os bancos.
 
     É necessário indicar apenas o **CPF**.
 
-    - `/account/contas/<cpf>`
+ - `/account/contas/<cpf>`
     
-    Usada para solicitar todas contas bancárias que contém um determinado CPF em único banco.
+     Usada para solicitar todas contas bancárias que contém um determinado CPF em único banco.
 
-    É necessário indicar apenas o **CPF**.
+     É necessário indicar apenas o **CPF**.
 
-    - `/account/sacar/<cpf>/<valor>`
+ - `/account/sacar/<cpf>/<valor>`
     
-    Usada para realizar a operação de sacar dinheiro de uma conta.
+     Usada para realizar a operação de sacar dinheiro de uma conta.
 
-    É necessário indicar o **CPF** e também o **valor** a ser sacado.
+     É necessário indicar o **CPF** e também o **valor** a ser sacado.
 
-    - `/account/depositar/<cpf>/<valor>`
+ - `/account/depositar/<cpf>/<valor>`
     
-    Usada para realizar a operação de depositar dinheiro de uma conta.
+     Usada para realizar a operação de depositar dinheiro de uma conta.
 
-    É necessário indicar o **CPF** e também o **valor** a ser depositado
+     É necessário indicar o **CPF** e também o **valor** a ser depositado
 
-     - `/account/transferir/<cpf1>/<cpf2>/<valor1>/<valor2>/<banco1>/<banco2>`
+ - `/account/transferir/<cpf1>/<cpf2>/<valor1>/<valor2>/<banco1>/<banco2>`
     
-    Usada para realizar a operação de transferencia de uma ou duas contas simultaneamente.
+     Usada para realizar a operação de transferencia de uma ou duas contas simultaneamente.
 
-    É necessário indicar os **CPF** dos destinatários, os respectivos **valores** a serem transferidos e também seus correspondentes **bancos**
+     É necessário indicar os **CPF** dos destinatários, os respectivos **valores** a serem transferidos e também seus correspondentes **bancos**
     
 
 ## 2.3 Atomicidade e segurança
