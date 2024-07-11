@@ -169,7 +169,7 @@ O sistema conta com duas telas modernas e amigáveis para facilitar a interaçã
   <strong>Tela Interna Bancária</strong>
 </p>
 <p align="center">
-  <img src="https://github.com/Pegasus77-Adriel/pb2_main/blob/main/tela_interna.png" alt="tela interna">
+  <img src="https://github.com/Pegasus77-Adriel/pb2_main/blob/main/tela_interna.png">
 </p>
 
 <br><br>
