@@ -98,7 +98,7 @@ Observação: O docker deve está previamente instalado na máquina.
 O propósito central deste sistema é otimizar o gerenciamento entre diversas contas bancárias de um mesmo cliente em diferentes bancos, além de oferecer suporte para realizar um conjunto de operações simultaneamente. Isso abrange não apenas a capacidade da aplicação de consultar dados remotamente do mesmo cliente em diferentes bancos, mas também de exercutar operações bancárias de forma eficaz, sendo elas depositar, sacar e transferir. Para alcançar esse propósito, o sistema incorpora o protocolo de comunicação HTTP, esse concebido para assegurar a confiabilidade do serviço.
 
 ## 2. Solução do problema
-No desenvolvimento do sistema foi utilizado a linguagem de programação Python na versão 3.11.4, bem como as funcionalidades incluídas nas bibliotecas nativas da linguagem, além do framework Flask para implementação da API Rest.
+No desenvolvimento do sistema foi utilizado a linguagem de programação Python na versão 3.11.4, bem como as funcionalidades incluídas nas bibliotecas nativas da linguagem, além do framework Flask para implementação da API Rest e o SQLite3 para o banco de dados.
 
 ## 2.1 Comunicação entre bancos
 Para a comunicação do banco [bradesco](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/bradesco), [nubank](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/nubank) e [picpay](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/picpay) foi utilizado o protocolo de comunicação HTTP, inclusive os códigos padronizados usados pelos servidores web para indicar a resposta a uma solicitação feita pelo cliente.
@@ -107,29 +107,50 @@ Para a comunicação do banco [bradesco](https://github.com/Pegasus77-Adriel/pb2
 Nesse projeto foi utilizado o protocolo HTTP (Hypertext Transfer Protocol), que é um protocolo de comunicação utilizado na web para a transferência de dados entre clientes (como navegadores) e servidores. Ele define como as mensagens são formatadas e transmitidas, bem como as ações que os servidores e navegadores devem executar em resposta a vários comandos.
   - Métodos HTTP Utilizados: O mais utilizado foi o método POST, usado esse em muitos casos para enviar comandos, como depositar em uma conta em outro banco, além de repassar os dados necessários para o processamento da operação para o banco de destino. Em contrapartida, foi implementado o método GET, sendo ele usado para fazer requisições para consultar dados, por exemplo o saldo da conta de um cliente.
     
-- As rotas possíveis para comunicação com a aplicação:
-  - `/alterar_temp_amostragem/<segundos>/<matricula>`
+- Algumas das rotas possíveis para comunicação interna e externa dos bancos:
+  - `/signup`
     
-    Usada para alterar o intervalo de tempo de envio de um determinado sensor para o servidor.
+    Usada para criação de uma nova conta bancária de um cliente.
   
-    É necessário indicar os **segundos** e a **matricula** do sensor.
-  
-  - `/enviar_comando/<comando>/<matricula>`
+  - `/login`
     
-    Usada para enviar o comando de **ligar** ou **desligar** para um sensor.
+    Usada para autenticação do login do cliente
   
-    É necessário indicar o **comando** e a **matricula** do sensor.
-  
-  - `/receber_medicao/<matricula>`
+  - `/account/<cpf>`
     
-    Usada para solicitar a ultima medição de um determinado sensor.
+    Usada para solicitar todas contas bancárias que contém um determinado CPF em todos os bancos.
 
-  É necessário indicar apenas a **matricula**.   
+    É necessário indicar apenas o **CPF**.
 
-## 2.3 Servidor e Aplicação
-Para a comunicação do [servidor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/servidor/broker.py) com a [aplicação](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/aplicacao/app.py) foi utilizado o protocolo de comunicação HTTP através da implementação da API Rest, como pode ser visto no diagrama abaixo:
-![diagrama servidor e app](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/diagrama%20servidor%20e%20app.png)
-No diagrama acima por exemplo, pode ser notado uma das rota da API Rest, sendo essa utilizada pela aplicação para a alteração do intervalo de envio de dados constantes do sensor para o servidor, bem como pode ser visto também uma resposta do servidor para a respectiva requição da aplicação. 
+    - `/account/contas/<cpf>`
+    
+    Usada para solicitar todas contas bancárias que contém um determinado CPF em único banco.
+
+    É necessário indicar apenas o **CPF**.
+
+    - `/account/sacar/<cpf>/<valor>`
+    
+    Usada para realizar a operação de sacar dinheiro de uma conta.
+
+    É necessário indicar o **CPF** e também o **valor** a ser sacado.
+
+    - `/account/depositar/<cpf>/<valor>`
+    
+    Usada para realizar a operação de depositar dinheiro de uma conta.
+
+    É necessário indicar o **CPF** e também o **valor** a ser depositado
+
+     - `/account/transferir/<cpf1>/<cpf2>/<valor1>/<valor2>/<banco1>/<banco2>`
+    
+    Usada para realizar a operação de transferencia de uma ou duas contas simultaneamente.
+
+    É necessário indicar os **CPF** dos destinatários, os respectivos **valores** a serem transferidos e também seus correspondentes **bancos**
+    
+
+## 2.3 Atomicidade e segurança
+- ROLLBACK: esse comando foi comumente utilizado nas interações com o banco de dados para reverter uma transação que foi iniciada, mas não foi concluída. Quando uma transação é revertida, todas as alterações feitas durante essa transação são desfeitas, retornando o banco de dados ao seu estado anterior ao início da transação, isso tudo afim de garantir a atomicidade das operações.
+- LOCK: foi utilizado em parceira com o **ROLLBACK** e tem por objeitvo garantir que apenas uma thread ou processo possa acessar um recurso compartilhado por vez, como por exemplo o bancos de dados e algumas rotas da API Rest.
+
 ## 2.4 protocolo HTTP e API Rest
 - HTTP: é o protocolo usado para comunicação na web, que opera em um modelo cliente-servidor, onde o cliente faz requisições ao servidor, que responde com os dados solicitados. Geralmente utiliza os métodos de requisição como GET e POST, que são usados para receber e enviar dados pro servidor.
 - API Rest: Em conjunto com o HTTP, as APIs REST proporcionam uma maneira eficiente e flexível para que aplicativos se comuniquem. Elas utilizam solicitações HTTP, incluindo os métodos GET, POST, PUT e DELETE, para realizar operações em recursos específicos. Esses recursos são acessados através de URLs e os dados geralmente são retornados nos formatos JSON ou XML. Essa abordagem padronizada facilita a integração entre sistemas e serviços web.
