@@ -151,39 +151,10 @@ Algumas das rotas possíveis para comunicação interna e externa dos bancos:
 - ROLLBACK: esse comando foi comumente utilizado nas interações com o banco de dados para reverter uma transação que foi iniciada, mas não foi concluída. Quando uma transação é revertida, todas as alterações feitas durante essa transação são desfeitas, retornando o banco de dados ao seu estado anterior ao início da transação, isso tudo afim de garantir a atomicidade das operações.
 - LOCK: foi utilizado em parceira com o **ROLLBACK** e tem por objeitvo garantir que apenas uma thread ou processo possa acessar um recurso compartilhado por vez, como por exemplo o bancos de dados e algumas rotas da API Rest.
 
-## 2.4 protocolo HTTP e API Rest
-- HTTP: é o protocolo usado para comunicação na web, que opera em um modelo cliente-servidor, onde o cliente faz requisições ao servidor, que responde com os dados solicitados. Geralmente utiliza os métodos de requisição como GET e POST, que são usados para receber e enviar dados pro servidor.
-- API Rest: Em conjunto com o HTTP, as APIs REST proporcionam uma maneira eficiente e flexível para que aplicativos se comuniquem. Elas utilizam solicitações HTTP, incluindo os métodos GET, POST, PUT e DELETE, para realizar operações em recursos específicos. Esses recursos são acessados através de URLs e os dados geralmente são retornados nos formatos JSON ou XML. Essa abordagem padronizada facilita a integração entre sistemas e serviços web.
-## 2.5 Threads
-Os códigos do sensor e do servidor utilizam threads para receber e enviar mensagens atráves comunicação UDP e TCP respectivamente, de modo que não gere conflito ou atraso no processamento de dados.
+## 2.3 Interface 
+O sistema conta com duas telas principais:
 
-Uma thread pode ser descrita como uma unidade básica de processamento dentro de um programa, capaz de executar tarefas relacionadas à aplicação principal de forma independente. A utilização de threads permite que várias atividades ocorram simultaneamente, o que faz com que diferentes partes do sistema executem suas tarefas quase ao mesmo tempo, embora isso possa criar uma impressão de paralelismo que não é totalmente verdade.
 
-No código o sensor utiliza uma thread para enviar as medições constantimente via UDP para o servidor, e utiliza outra para receber os comandos via TCP provindos do servidor. Já o servidor, usa uma thread para receber os dados dos sensores via UDP, outra thread para realizar conexões TCP com os sensores, e por fim utiliza outra para comunicação com a aplicação. 
-## 2.6 Sensor
-O [sensor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/sensores/dispositivos.py) tem o papel de simular dados como temperatura e umidade, ajustando esses valores de forma aleatória para garantir uma variação constante. Esses dados gerados são então enviados via UDP de maneira regular para o servidor em intervalos de tempo predefinidos, os dados são enviados no formato JSON.
-## 2.7 Servidor
-O [servidor](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/servidor/broker.py)
-é responsável por receber os dados dos sensores e armazena-los em um buffer interno, além disso tem o papel de tratar as requisições (requests) da aplicação, por meio do processamento das informações e de enviar a resposta adequada para cada solicitação. Desse modo, o servidor interage com a aplicação através da API Rest (HTTP), e recebe dados dos sensores via UDP, bem como envia comandos para os sensores via TCP.
-
-As rotas possíveis para comunicação com a aplicação:
-- `/alterar_temp_amostragem/<segundos>/<matricula>`
-  
-  Usada para alterar o intervalo de tempo de envio de um determinado sensor para o servidor.
-
-  É necessário indicar os **segundos** e a **matricula** do sensor.
-
-- `/enviar_comando/<comando>/<matricula>`
-  
-  Usada para enviar o comando de **ligar** ou **desligar** para um sensor.
-
-  É necessário indicar o **comando** e a **matricula** do sensor.
-
-- `/receber_medicao/<matricula>`
-  
-  Usada para solicitar a ultima medição de um determinado sensor.
-
-  É necessário indicar apenas a **matricula**.
   
 ## 2.8 Aplicação
 
