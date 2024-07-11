@@ -101,7 +101,7 @@ O propósito central deste sistema é otimizar o gerenciamento entre diversas co
 No desenvolvimento do sistema foi utilizado a linguagem de programação Python na versão 3.11.4, bem como as funcionalidades incluídas nas bibliotecas nativas da linguagem, além do framework Flask para implementação da API Rest e o SQLite3 para o banco de dados.
 
 ## 2.1 Comunicação entre bancos
-Para a comunicação do banco [bradesco](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/bradesco), [nubank](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/nubank) e [picpay](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/picpay) foi utilizado o protocolo de comunicação HTTP, inclusive os códigos padronizados usados pelos servidores web para indicar a resposta a uma solicitação feita pelo cliente.
+Para a comunicação do banco [bradesco](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/bradesco), [nubank](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/nubank) e [picpay](https://github.com/Pegasus77-Adriel/pb2_main/tree/main/picpay) foi utilizado o protocolo de comunicação HTTP, bem como os códigos padronizados usados pelos servidores web para indicar a resposta a uma solicitação feita pelo cliente.
 
 ## 2.2 Protocolo HTTP
 Nesse projeto foi utilizado o protocolo HTTP (Hypertext Transfer Protocol), que é um protocolo de comunicação utilizado na web para a transferência de dados entre clientes (como navegadores) e servidores. Ele define como as mensagens são formatadas e transmitidas, bem como as ações que os servidores e navegadores devem executar em resposta a vários comandos.
