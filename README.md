@@ -154,8 +154,9 @@ Algumas das rotas possíveis para comunicação interna e externa dos bancos:
 ## 2.3 Interface 
 O sistema conta com duas telas principais como pode pode ser visto abaixo:
 
-![tela inicial](https://github.com/Pegasus77-Adriel/pb2_main/blob/main/tela_inicial.png)
-
+<p align="center">
+  <img src="https://github.com/Pegasus77-Adriel/pb2_main/blob/main/tela_inicial.png" alt="tela inicial">
+</p>
 
   
 ## 2.8 Aplicação
