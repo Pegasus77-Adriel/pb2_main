@@ -174,17 +174,11 @@ O sistema conta com duas telas modernas e amigáveis para facilitar a interaçã
 
 <br><br>
 
-  
-## 2.8 Aplicação
-
-A [aplicação](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/aplicacao/app.py) tem como objetivo fazer o gerenciamento dos sensores, utilizando-se do servidor como intermediário para a comunicação entre as duas partes (sensor e aplicação). Por esse motivo, a aplicação é capaz de realizar comandos de ligar ou desligar um sensor facilmente atráves das requisições enviadas ao servidor, do mesmo modo que consegue receber dados remotamente de um sensor. Logo abaixo, pode ser visto o diagrama completo unindo todas 3 entidades do projeto, sensor, servidor e aplicação.
-![diagrama geral](https://github.com/Pegasus77-Adriel/Gerenciamento-de-Sensores-Inteligentes/blob/main/diagrama%20completo.png)
-
 ## 3. Melhorias Futuras
-O sistema é totalemente funcional, porém pode ser melhorado para se tornar mais eficiente. Entre as melhorias possíveis podem ser citadas:
-- Adicionar um tempo para o servidor tente se reconectar com sensor de forma autonôma sem gerar erro;
-- Adicionar mais funcionalidades além das que já estão implementas para o gerenciamento dos sensores;
-- Criar uma interface gráfica para tornar a experiência do usuário a melhor possível.
+O sistema é parcialmente funcional, pois não garante 100% a atomicidade em operação que envolva 3 bancos diferentes simultaneamente em caso de falha durante a transição, desse modo deve ser melhorado essa parte para se tornar mais eficiente e seguro. Entre as melhorias possíveis podem ser citadas:
+- Garantir atomicidade em operações que envolve vários bancos diferentes;
+- Adicionar mais funcionalidades como aumentar o número de contas que pode participar de uma única operação;
+- Criar um sistema de registro onde o usuário pode ver todas operações realizadas ao decorrer do tempo.
 
 
 
