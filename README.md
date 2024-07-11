@@ -149,7 +149,7 @@ Algumas das rotas possíveis para comunicação interna e externa dos bancos:
 
 ## 2.3 Atomicidade e segurança
 - ROLLBACK: esse comando foi comumente utilizado nas interações com o banco de dados para reverter uma transação que foi iniciada, mas não foi concluída. Quando uma transação é revertida, todas as alterações feitas durante essa transação são desfeitas, retornando o banco de dados ao seu estado anterior ao início da transação, isso tudo afim de garantir a atomicidade das operações.
-- LOCK: foi utilizado em parceira com o **ROLLBACK** e tem por objeitvo garantir que apenas uma thread ou processo possa acessar um recurso compartilhado por vez, como por exemplo o bancos de dados e algumas rotas da API Rest.
+- LOCK: foi utilizado em parceira com o **ROLLBACK** e tem por objeitvo garantir que apenas uma thread ou processo possa acessar um recurso compartilhado por vez, como por exemplo o bancos de dados e algumas rotas da API Rest, fazendo assim com que não gere conflitos ou perca da integridade dos dados durante as operações afim de garantir um sistema confiável.
 
 ## 2.3 Interface 
 O sistema conta com duas telas modernas e amigáveis para facilitar a interação com os usuários, como pode logo ser visto baixo:
