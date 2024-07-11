@@ -152,7 +152,9 @@ Algumas das rotas possíveis para comunicação interna e externa dos bancos:
 - LOCK: foi utilizado em parceira com o **ROLLBACK** e tem por objeitvo garantir que apenas uma thread ou processo possa acessar um recurso compartilhado por vez, como por exemplo o bancos de dados e algumas rotas da API Rest.
 
 ## 2.3 Interface 
-O sistema conta com duas telas principais:
+O sistema conta com duas telas principais como pode pode ser visto abaixo:
+
+![tela inicial](https://github.com/Pegasus77-Adriel/pb2_main/blob/main/tela_inicial.png)
 
 
   
