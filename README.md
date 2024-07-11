@@ -107,7 +107,7 @@ Para a comunicação do banco [bradesco](https://github.com/Pegasus77-Adriel/pb2
 Nesse projeto foi utilizado o protocolo HTTP (Hypertext Transfer Protocol), que é um protocolo de comunicação utilizado na web para a transferência de dados entre clientes (como navegadores) e servidores. Ele define como as mensagens são formatadas e transmitidas, bem como as ações que os servidores e navegadores devem executar em resposta a vários comandos.
   - Métodos HTTP Utilizados: O mais utilizado foi o método POST, usado esse em muitos casos para enviar comandos, como depositar em uma conta em outro banco, além de repassar os dados necessários para o processamento da operação para o banco de destino. Em contrapartida, foi implementado o método GET, sendo ele usado para fazer requisições para consultar dados, por exemplo o saldo da conta de um cliente.
     
-- Algumas das rotas possíveis para comunicação interna e externa dos bancos:
+Algumas das rotas possíveis para comunicação interna e externa dos bancos:
   - `/signup`
     
     Usada para criação de uma nova conta bancária de um cliente.
